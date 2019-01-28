@@ -9,7 +9,7 @@ class _RecommendPageState extends State<RecommendPage> {
   ScrollController _scrollController = ScrollController();
 
   @override
-  void initState() {
+  Future<void> initState() {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -18,13 +18,15 @@ class _RecommendPageState extends State<RecommendPage> {
         _getMore();
       }
     });
+    return null;
   }
 
-  void _onRefresh() async {
+  Future<void> _onRefresh() async {
     await Future.delayed(Duration(seconds: 3), () {
       print('refresh');
       setState(() {});
     });
+    return null;
   }
 
   Future _getMore() async {}

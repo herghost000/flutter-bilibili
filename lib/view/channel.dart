@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../component/testWidget.dart';
+import '../component/swiper.dart';
 
 class ChannelPage extends StatefulWidget {
   const ChannelPage({
@@ -27,9 +27,14 @@ class _ChannelPageState extends State<ChannelPage> {
         leading: IconButton(icon: Icon(Icons.menu),onPressed: widget._leadPress,),
       ),
       body: Container(
-        width: 204.95,
         color: Colors.deepOrangeAccent,
-        child: Text("channel"),
+        width: double.infinity,
+        child: Column(
+          children: <Widget>[
+            Swiper(),
+            Text("卧槽")
+          ],
+        ),
       ),
     );
   }
