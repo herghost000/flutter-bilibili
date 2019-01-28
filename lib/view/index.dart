@@ -102,7 +102,7 @@ class IndexPage extends StatelessWidget {
         ];
       },
       body: TabBarView(
-        children: <Widget>[RecommendPage(), PageTwo(), PageThree(), PageFour()],
+        children: <Widget>[RecommendPage(scrollViewController: _scrollViewController), PageTwo(), PageThree(), PageFour()],
         controller: _tabController,
       ),
     );

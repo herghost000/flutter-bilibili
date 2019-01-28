@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
 class RecommendPage extends StatefulWidget {
+  RecommendPage({Key key, ScrollController scrollViewController})
+      : _scrollViewController = scrollViewController,
+        super(key: key);
+  final ScrollController _scrollViewController;
   @override
   _RecommendPageState createState() => _RecommendPageState();
 }
 
 class _RecommendPageState extends State<RecommendPage> {
-  ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController;
 
   @override
   Future<void> initState() {
     super.initState();
+    _scrollController = ScrollController();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -36,11 +41,14 @@ class _RecommendPageState extends State<RecommendPage> {
     return RefreshIndicator(
         onRefresh: _onRefresh,
         child: new GridView.count(
+          semanticChildCount: 9,
           crossAxisCount: 2,
           mainAxisSpacing: 10.0,
           crossAxisSpacing: 12.0,
           padding: const EdgeInsets.all(14.0),
-          childAspectRatio: 0.9,
+          childAspectRatio: 0.8,
+
+//          primary: true,
           controller: _scrollController,
           children: <Widget>[
             GridTile(
@@ -78,6 +86,7 @@ class _RecommendPageState extends State<RecommendPage> {
             Image.asset(
               'assets/images/${index}.webp',
               fit: BoxFit.cover,
+              width: double.infinity,
               height: 116.0,
             ),
             Expanded(
