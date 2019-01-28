@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../component/testWidget.dart';
 
 class ChannelPage extends StatefulWidget {
   const ChannelPage({
@@ -22,7 +23,13 @@ class _ChannelPageState extends State<ChannelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("频道"),
         leading: IconButton(icon: Icon(Icons.menu),onPressed: widget._leadPress,),
+      ),
+      body: Container(
+        width: 204.95,
+        color: Colors.deepOrangeAccent,
+        child: Text("channel"),
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'component/testWidget.dart';
 import 'view/index.dart';
 import 'view/channel.dart';
+import 'view/news.dart';
+import 'view/personal.dart';
 
 void main() => runApp(MyApp());
 
@@ -62,8 +64,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           widget: widget,
           tabController: _tabController),
       ChannelPage(homeKey: _scaffoldKey,),
-      PageTwo(),
-      PageTwo(),
+      NewsPage(homeKey: _scaffoldKey,),
+      PersonalPage(homeKey: _scaffoldKey,),
     ];
     return Scaffold(
       key: _scaffoldKey,

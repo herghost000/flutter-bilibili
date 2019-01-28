@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../component/testWidget.dart';
 import '../main.dart';
+import 'recommend.dart';
 
 class IndexPage extends StatelessWidget {
   const IndexPage({
@@ -101,7 +102,7 @@ class IndexPage extends StatelessWidget {
         ];
       },
       body: TabBarView(
-        children: <Widget>[PageOne(), PageTwo(), PageThree(), PageFour()],
+        children: <Widget>[RecommendPage(), PageTwo(), PageThree(), PageFour()],
         controller: _tabController,
       ),
     );
@@ -112,17 +113,4 @@ class IndexPage extends StatelessWidget {
   }
 
 }
-class TabSizeWidget extends StatelessWidget {
-  TabSizeWidget({Key key, String text}): _text = text, super(key: key){}
 
-  final String _text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Tab(
-        text: _text,
-      ),
-    );
-  }
-}
