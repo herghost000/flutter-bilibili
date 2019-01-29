@@ -1,81 +1,79 @@
 import 'package:flutter/material.dart';
+import 'infinity_page_view.dart';
+import 'dart:async';
 
 class Swiper extends StatefulWidget {
   @override
   _SwiperState createState() => _SwiperState();
 }
 
-class _SwiperState extends State<Swiper> {
-  final PageController _pageController = new PageController();
-  double _currentPage = 0.0;
+class _SwiperState extends State<Swiper> with SingleTickerProviderStateMixin {
+  String label;
+  int itemCount;
+  InfinityPageController infinityPageController;
+
+  @override
+  void initState() {
+    super.initState();
+    infinityPageController = new InfinityPageController(initialPage: 0);
+    itemCount = 3;
+    label = "1/${itemCount}";
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: 116.0,
-      color: Colors.white,
-      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints){
-        return NotificationListener(
-          onNotification: (ScrollNotification note) {
-            setState(() {
-              _currentPage = _pageController.page;
-            });
-          },
-          child: Container(
-            color: Colors.black,
-            child: PageView.custom(
-              physics: const PageScrollPhysics(
-                  parent: const BouncingScrollPhysics()),
-              controller: _pageController,
-              childrenDelegate: SliverChildBuilderDelegate(
-                    (context, index) => _SimplePage(
-                  '$index',
-                  parallaxOffset:
-                  constraints.maxWidth / 2.0 * (index - _currentPage),
-                  // 小字 Text 在页面滑动时要比整体移动速度快一倍，所以小字的 translate X 为 \tt{pageWidth / 2 * progress} 。
-                ),
-                childCount: 10,
-              ),
-            ),
+      margin: EdgeInsets.all(20.0),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            height: 116.0,
+            color: Colors.red,
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return NotificationListener(
+                onNotification: (ScrollNotification note) {
+                },
+                child: Container(
+                    child: new InfinityPageView(
+                  itemBuilder: (BuildContext context, int index) {
+                    switch (index) {
+                      case 0:
+                        return new Image.network(
+                          "http://via.placeholder.com/350x150",
+                          fit: BoxFit.fill,
+                        );
+                      case 1:
+                        return new Image.network(
+                          "http://via.placeholder.com/250x100",
+                          fit: BoxFit.fill,
+                        );
+                    }
+                    return new Image.network(
+                      "http://via.placeholder.com/288x188",
+                      fit: BoxFit.fill,
+                    );
+                  },
+                  itemCount: itemCount,
+                  onPageChanged: (int index) {
+                    setState(() {
+                      label = "${index + 1}/${itemCount}";
+                    });
+                  },
+                  controller: infinityPageController,
+                )),
+              );
+            }),
           ),
-        );
-      }),
+          Positioned(right: 0.0, bottom: 0.0, child: Text("666"))
+        ],
+      ),
     );
   }
-}
-
-class _SimplePage extends StatelessWidget {
-  _SimplePage(this.data, {Key key, this.parallaxOffset = 0.0})
-      : super(key: key);
-
-  final String data;
-  final double parallaxOffset;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          color: Colors.black,
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              new Text(
-                data,
-                style: const TextStyle(fontSize: 60.0,color: Colors.white),
-              ),
-              new Transform(
-                transform:
-                new Matrix4.translationValues(parallaxOffset, 0.0, 0.0),
-                child: const Text('左右滑动，这是第二行滚动速度更快的小字',style: const TextStyle(fontSize: 16.0,color: Colors.white),),
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
 }
