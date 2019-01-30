@@ -61,41 +61,61 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
                     width: double.infinity,
                     height: 156.0,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Image.asset('assets/images/ic_fab_play.png',color: Colors.pink[300],),
-                          Text("番剧")
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
-                          Text("番剧")
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
-                          Text("番剧")
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
-                          Text("番剧")
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
-                          Text("番剧")
-                        ],
-                      )
-                    ],
-                  )
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 20.0, bottom: 20.0, left: 40.0, right: 40.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/images/ic_fab_play.png',
+                              color: Colors.pink[300],
+                            ),
+                            Text("番剧")
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/images/bangumi_follow_home_ic_domestic.png',
+                              color: Colors.pink[300],
+                            ),
+                            Text("国创")
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                                'assets/images/bangumi_follow_home_ic_timeline.png'),
+                            Text("时间表")
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/images/bangumi_follow_home_ic_index.png',
+                            ),
+                            Text("索引")
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/images/bangumi_follow_home_ic_review.png',
+                            ),
+                            Text("点评")
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                      child: Swiper(
+                        radius: 8.0,
+                      ))
                 ],
               ),
             )
@@ -132,20 +152,28 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
                                 "【C菌】B站三怂再次被吓飞！【生化危机2：重制版】长篇惺惺惜惺惺",
                                 maxLines: 2,
 //                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(),
                               ),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 1.0, horizontal: 4.0),
-                                  child: Text(
-                                    "大家都在搜",
-                                    style: TextStyle(color: Colors.white),
+                                  padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+                                  child: Align(
+                                    alignment: Alignment(0, 0),
+                                    widthFactor: 1.0,
+                                    child: Baseline(
+                                      baseline: 12.0,
+                                      baselineType: TextBaseline.alphabetic,
+                                      child: Text(
+                                        "大家都在搜",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12.0,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                   decoration: BoxDecoration(
                                       color: Colors.orange,

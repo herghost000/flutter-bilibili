@@ -103,16 +103,19 @@ class _HotPage extends State<HotPage> {
                 decoration: BoxDecoration(
                     border: Border(
                         bottom: BorderSide(
-                            color: Colors.black12, style: BorderStyle.solid))),
+                            color: Colors.black12.withOpacity(.05), style: BorderStyle.solid))),
                 padding: EdgeInsets.only(
                     left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
                 child: Row(
                   children: <Widget>[
-                    Image.asset(
-                      'assets/images/${index + 1}.webp',
-                      fit: BoxFit.cover,
-                      width: 170.0,
-                      height: double.infinity,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4.0),
+                      child: Image.asset(
+                        'assets/images/${index + 1}.webp',
+                        fit: BoxFit.cover,
+                        width: 170.0,
+                        height: double.infinity,
+                      ),
                     ),
                     Expanded(
                       child: Container(
@@ -128,8 +131,8 @@ class _HotPage extends State<HotPage> {
                                 maxLines: 2,
 //                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold
+//                                  color: Colors.black87,
+//                                  fontWeight: FontWeight.bold
                                 ),
                               ),
                             ),
@@ -138,13 +141,25 @@ class _HotPage extends State<HotPage> {
                               children: <Widget>[
                                 Container(
                                   padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-                                  child: Text("大家都在搜",style: TextStyle(
-                                      color: Colors.white
-                                  ),),
+                                  child: Align(
+                                    alignment: Alignment(0, 0),
+                                    widthFactor: 1.0,
+                                    child: Baseline(
+                                      baseline: 12.0,
+                                      baselineType: TextBaseline.alphabetic,
+                                      child: Text(
+                                        "大家都在搜",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                   decoration: BoxDecoration(
                                       color: Colors.orange,
-                                      borderRadius: BorderRadius.all(Radius.circular(4.0))
-                                  ),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(4.0))),
                                 ),
                                 Text("渗透之C君", style: TextStyle(
                                   color: Colors.black45
