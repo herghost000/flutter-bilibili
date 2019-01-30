@@ -61,7 +61,41 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
                     width: double.infinity,
                     height: 156.0,
                   ),
-                  Text("123"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Image.asset('assets/images/ic_fab_play.png',color: Colors.pink[300],),
+                          Text("番剧")
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
+                          Text("番剧")
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
+                          Text("番剧")
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
+                          Text("番剧")
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Image.asset('assets/images/ic_tv_play.png',color: Colors.pink[300],),
+                          Text("番剧")
+                        ],
+                      )
+                    ],
+                  )
                 ],
               ),
             )
@@ -70,11 +104,6 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
             itemExtent: 140.0,
             delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
-//                  return ListTile(
-//                    title: Text('title'),
-//                    leading: Text("leading"),
-//                    subtitle: Text("xxxx"),
-//                  );
               return Container(
                 decoration: BoxDecoration(
                     border: Border(
