@@ -17,7 +17,7 @@ class PageTwo extends StatelessWidget {
 class PageThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text("three");;
+    return Text("three");
   }
 }
 class PageFour extends StatelessWidget {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../component/testWidget.dart';
 import '../main.dart';
 import 'recommend.dart';
+import 'hot.dart';
+import 'animated_cartoon.dart';
 
 class IndexPage extends StatelessWidget {
   const IndexPage({
@@ -10,7 +12,8 @@ class IndexPage extends StatelessWidget {
     @required ScrollController scrollViewController,
     @required this.widget,
     @required TabController tabController,
-  })  : _homeKey = homeKey, _scrollViewController = scrollViewController,
+  })  : _homeKey = homeKey,
+        _scrollViewController = scrollViewController,
         _tabController = tabController,
         super(key: key);
 
@@ -31,7 +34,10 @@ class IndexPage extends StatelessWidget {
               floating: true,
               forceElevated: boxIsScrolled,
               expandedHeight: 100.0,
-              leading: IconButton(icon: Icon(Icons.menu),onPressed: _leadPress,),
+              leading: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: _leadPress,
+              ),
 //              flexibleSpace: Container(child: null),
               bottom: PreferredSize(
                 preferredSize: Size(double.infinity, 40.0),
@@ -74,35 +80,40 @@ class IndexPage extends StatelessWidget {
                 PopupMenuButton<String>(
                   onSelected: null,
                   itemBuilder: (BuildContext context) =>
-                  <PopupMenuEntry<String>>[
-                    const PopupMenuItem<String>(
-                      value: 'doc',
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.library_books,
-                          size: 22.0,
+                      <PopupMenuEntry<String>>[
+                        const PopupMenuItem<String>(
+                          value: 'doc',
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.library_books,
+                              size: 22.0,
+                            ),
+                            title: Text('查看文档'),
+                          ),
                         ),
-                        title: Text('查看文档'),
-                      ),
-                    ),
-                    const PopupMenuDivider(),
-                    const PopupMenuItem<String>(
-                      value: 'code',
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.code,
-                          size: 22.0,
+                        const PopupMenuDivider(),
+                        const PopupMenuItem<String>(
+                          value: 'code',
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.code,
+                              size: 22.0,
+                            ),
+                            title: Text('查看Demo'),
+                          ),
                         ),
-                        title: Text('查看Demo'),
-                      ),
-                    ),
-                  ],
+                      ],
                 ),
               ])
         ];
       },
       body: TabBarView(
-        children: <Widget>[RecommendPage(scrollViewController: _scrollViewController), PageTwo(), PageThree(), PageFour()],
+        children: <Widget>[
+          RecommendPage(scrollViewController: _scrollViewController),
+          HotPage(scrollViewController: _scrollViewController),
+          AnimatedCartoon(scrollViewController: _scrollViewController),
+          PageFour()
+        ],
         controller: _tabController,
       ),
     );
@@ -111,6 +122,4 @@ class IndexPage extends StatelessWidget {
   void _leadPress() {
     _homeKey.currentState.openDrawer();
   }
-
 }
-
