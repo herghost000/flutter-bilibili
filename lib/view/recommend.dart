@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../component/swiper.dart';
 
 class RecommendPage extends StatefulWidget {
   RecommendPage({Key key, ScrollController scrollViewController})
@@ -17,6 +18,10 @@ class _RecommendPageState extends State<RecommendPage> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
+      print(widget._scrollViewController.position.maxScrollExtent);
+      if (_scrollController.position.pixels <= widget._scrollViewController.position.maxScrollExtent) {
+        widget._scrollViewController.position.jumpTo(_scrollController.position.pixels);
+      }
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         print('滑动到了最底部');
@@ -39,39 +44,40 @@ class _RecommendPageState extends State<RecommendPage> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        onRefresh: _onRefresh,
-        child: new GridView.count(
-          semanticChildCount: 9,
-          crossAxisCount: 2,
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 12.0,
-          padding: const EdgeInsets.all(14.0),
-          childAspectRatio: 0.8,
-
-//          primary: true,
-          controller: _scrollController,
-          children: <Widget>[
-            GridTile(
-              child: Container(
-                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                color: Colors.white,
-                child: Image.asset(
-                  'assets/images/ic_promo_index_sign3_v2.png',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
+      onRefresh: _onRefresh,
+      child: CustomScrollView(
+        controller: _scrollController,
+        slivers: <Widget>[
+          SliverList(delegate: SliverChildListDelegate([
+            Container(margin: EdgeInsets.only(top: 8.0),child: Swiper())
+          ])),
+          SliverPadding(
+            padding: EdgeInsets.all(10.0),
+            sliver: SliverGrid.count(crossAxisCount: 2,childAspectRatio: 0.8,children: <Widget>[
+              GridTile(
+                child: Container(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  color: Colors.white,
+                  child: Image.asset(
+                    'assets/images/ic_promo_index_sign3_v2.png',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
                 ),
               ),
-            ),
-            buildInkWell(1),
-            buildInkWell(2),
-            buildInkWell(3),
-            buildInkWell(4),
-            buildInkWell(5),
-            buildInkWell(6),
-            buildInkWell(7),
-            buildInkWell(8),
-          ],
-        ));
+              buildInkWell(1),
+              buildInkWell(2),
+              buildInkWell(3),
+              buildInkWell(4),
+              buildInkWell(5),
+              buildInkWell(6),
+              buildInkWell(7),
+              buildInkWell(8),
+            ],crossAxisSpacing: 10.0,mainAxisSpacing: 10.0,),
+          )
+        ],
+      ),
+    );
   }
 
   InkWell buildInkWell(int index) {

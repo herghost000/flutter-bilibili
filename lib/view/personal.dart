@@ -22,8 +22,13 @@ class _PersonalPage extends State<PersonalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.black,
         title: Text("个人中心"),
         leading: IconButton(icon: Icon(Icons.menu),onPressed: widget._leadPress,),
+      ),
+      body: Container(
+        child: Text("sss"),
       ),
     );
   }

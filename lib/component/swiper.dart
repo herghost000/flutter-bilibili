@@ -28,7 +28,7 @@ class _SwiperState extends State<Swiper> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20.0),
+      margin: EdgeInsets.all(0.0),
       child: Stack(
         children: <Widget>[
           Container(
@@ -39,26 +39,18 @@ class _SwiperState extends State<Swiper> with SingleTickerProviderStateMixin {
                 builder: (BuildContext context, BoxConstraints constraints) {
               return NotificationListener(
                 onNotification: (ScrollNotification note) {
+
                 },
                 child: Container(
                     child: new InfinityPageView(
                   itemBuilder: (BuildContext context, int index) {
                     switch (index) {
                       case 0:
-                        return new Image.network(
-                          "http://via.placeholder.com/350x150",
-                          fit: BoxFit.fill,
-                        );
+                        return Image.asset('assets/images/10.webp',fit: BoxFit.fill,);
                       case 1:
-                        return new Image.network(
-                          "http://via.placeholder.com/250x100",
-                          fit: BoxFit.fill,
-                        );
+                        return Image.asset('assets/images/11.webp',fit: BoxFit.fill,);
                     }
-                    return new Image.network(
-                      "http://via.placeholder.com/288x188",
-                      fit: BoxFit.fill,
-                    );
+                    return Image.asset('assets/images/12.webp',fit: BoxFit.fill,);
                   },
                   itemCount: itemCount,
                   onPageChanged: (int index) {
