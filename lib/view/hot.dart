@@ -102,6 +102,7 @@ class _HotPage extends State<HotPage> {
               return Container(
                 decoration: BoxDecoration(
                     border: Border(
+
                         bottom: BorderSide(
                             color: Colors.black12.withOpacity(.05), style: BorderStyle.solid))),
                 padding: EdgeInsets.only(
