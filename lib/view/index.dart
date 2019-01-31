@@ -31,7 +31,7 @@ class IndexPage extends StatelessWidget {
           SliverAppBar(
               title: Text(widget.title),
               pinned: true,
-              floating: true,
+              floating: false,
               forceElevated: boxIsScrolled,
               expandedHeight: 100.0,
               leading: IconButton(

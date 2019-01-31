@@ -19,11 +19,6 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels <=
-          widget._scrollViewController.position.maxScrollExtent) {
-        widget._scrollViewController.position
-            .jumpTo(_scrollController.position.pixels);
-      }
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         print('滑动到了最底部');
@@ -53,6 +48,7 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
           SliverList(
               delegate: SliverChildListDelegate([
             Container(
+              color: Colors.white,
               child: Column(
                 children: <Widget>[
                   Image.asset(
@@ -120,84 +116,250 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
               ),
             )
           ])),
-          SliverFixedExtentList(
-            itemExtent: 140.0,
-            delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-              return Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Colors.black12, style: BorderStyle.solid))),
-                padding: EdgeInsets.only(
-                    left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/${index + 1}.webp',
-                      fit: BoxFit.cover,
-                      width: 170.0,
-                      height: double.infinity,
+          SliverList(
+              delegate: SliverChildListDelegate([
+            Divider(
+              height: 40.0,
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 20.0, right: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Baseline(
+                    child: Text(
+                      "番剧推荐",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                "【C菌】B站三怂再次被吓飞！【生化危机2：重制版】长篇惺惺惜惺惺",
-                                maxLines: 2,
-//                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-                                  child: Align(
-                                    alignment: Alignment(0, 0),
-                                    widthFactor: 1.0,
-                                    child: Baseline(
-                                      baseline: 12.0,
-                                      baselineType: TextBaseline.alphabetic,
-                                      child: Text(
-                                        "大家都在搜",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: Colors.orange,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(4.0))),
-                                ),
-                                Text(
-                                  "渗透之C君",
-                                  style: TextStyle(color: Colors.black45),
-                                ),
-                                Text(
-                                  "131.4万观看·01-26",
-                                  style: TextStyle(color: Colors.black45),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                    baseline: 16.0,
+                    baselineType: TextBaseline.alphabetic,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "查看更多",
+                        style: TextStyle(color: Colors.black38),
                       ),
+                      Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.black38,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ])),
+          SliverPadding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, right: 20.0, bottom: 10.0, top: 10.0),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3 - 20.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/images/13.webp',
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height:
+                                        (MediaQuery.of(context).size.width / 3 -
+                                                20.0) /
+                                            0.75,
+                                  )),
+                              Text(
+                                "傻吊教师",
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text("更新至第4话")
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3 - 20.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/images/14.webp',
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height:
+                                        (MediaQuery.of(context).size.width / 3 -
+                                                20.0) /
+                                            0.75,
+                                  )),
+                              Text(
+                                "齐木兄的灾难得瑟得瑟得瑟",
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text("更新至第17话")
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3 - 20.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/images/15.webp',
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height:
+                                        (MediaQuery.of(context).size.width / 3 -
+                                                20.0) /
+                                            0.75,
+                                  )),
+                              Text(
+                                "忘了",
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text("更新完毕")
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    RotatedBox(quarterTurns: null),
+                    RotationTransition(turns: null),
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      alignment: Alignment.center,
+                      child: Container(
+                        width: 100.0,
+                        height: 100.0,
+                        color: Colors.red,
+                      )
                     )
                   ],
                 ),
+              )
+//            new SliverGrid(
+//              //Grid
+//              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+//                crossAxisCount: 3, //Grid按两列显示
+//                crossAxisSpacing: 10.0,
+//                childAspectRatio: 0.5,
+//              ),
+//              delegate: new SliverChildBuilderDelegate(
+//                (BuildContext context, int index) {
+//                  //创建子widget
+//                  return new Container(
+//                    child: Column(
+//                      children: <Widget>[
+//                        Image.asset('assets/images/${index + 13}.webp',
+//                          fit: BoxFit.cover,
+//                          width: double.infinity,
+//                          height: (MediaQuery.of(context).size.width / 3 - 20.0) / 0.75,
+//                        ),
+//                        Text("999")
+//                      ],
+//                    ),
+//                  );
+//                },
+//                childCount: 3,
+//              ),
+//            ),
+              ),
+          SliverList(
+              delegate: SliverChildListDelegate([
+            Divider(
+              height: 40.0,
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 20.0, right: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Baseline(
+                    child: Text(
+                      "编辑推荐",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16.0),
+                    ),
+                    baseline: 16.0,
+                    baselineType: TextBaseline.alphabetic,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "查看更多",
+                        style: TextStyle(color: Colors.black38),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.black38,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ])),
+          SliverFixedExtentList(
+            itemExtent: 200.0,
+            delegate:
+                SliverChildBuilderDelegate((BuildContext context, int index) {
+              return Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(
+                    left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/${index + 9}.webp',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 110.0,
+                    ),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          child: Text(
+                            "AIR",
+                            style: TextStyle(
+                                fontSize: 14.0, fontWeight: FontWeight.bold),
+                          ),
+                          padding: EdgeInsets.only(top: 10.0),
+                        ),
+                        Text(
+                          "夏天，在靠近海边小小的街道上\n一位青年从公共汽车站下车了...",
+                          style:
+                              TextStyle(fontSize: 12.0, color: Colors.black54),
+                        )
+                      ],
+                    ))
+                  ],
+                ),
               );
-            }, childCount: 8 //50个列表项
+            }, childCount: 4 //50个列表项
                     ),
           ),
         ],
