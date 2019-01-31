@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../component/swiper.dart';
+import '../component/tap_loading.dart';
 
 class AnimatedCartoon extends StatefulWidget {
   AnimatedCartoon({Key key, ScrollController scrollViewController})
@@ -11,7 +12,7 @@ class AnimatedCartoon extends StatefulWidget {
   _AnimatedCartoon createState() => _AnimatedCartoon();
 }
 
-class _AnimatedCartoon extends State<AnimatedCartoon> {
+class _AnimatedCartoon extends State<AnimatedCartoon> with SingleTickerProviderStateMixin{
   ScrollController _scrollController;
 
   @override
@@ -244,47 +245,10 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
                         )
                       ],
                     ),
-                    RotatedBox(quarterTurns: null),
-                    RotationTransition(turns: null),
-                    Container(
-                      padding: const EdgeInsets.all(16.0),
-                      alignment: Alignment.center,
-                      child: Container(
-                        width: 100.0,
-                        height: 100.0,
-                        color: Colors.red,
-                      )
-                    )
+                    TapLoading(),
                   ],
                 ),
-              )
-//            new SliverGrid(
-//              //Grid
-//              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-//                crossAxisCount: 3, //Grid按两列显示
-//                crossAxisSpacing: 10.0,
-//                childAspectRatio: 0.5,
-//              ),
-//              delegate: new SliverChildBuilderDelegate(
-//                (BuildContext context, int index) {
-//                  //创建子widget
-//                  return new Container(
-//                    child: Column(
-//                      children: <Widget>[
-//                        Image.asset('assets/images/${index + 13}.webp',
-//                          fit: BoxFit.cover,
-//                          width: double.infinity,
-//                          height: (MediaQuery.of(context).size.width / 3 - 20.0) / 0.75,
-//                        ),
-//                        Text("999")
-//                      ],
-//                    ),
-//                  );
-//                },
-//                childCount: 3,
-//              ),
-//            ),
-              ),
+              )),
           SliverList(
               delegate: SliverChildListDelegate([
             Divider(
@@ -361,7 +325,7 @@ class _AnimatedCartoon extends State<AnimatedCartoon> {
               );
             }, childCount: 4 //50个列表项
                     ),
-          ),
+          )
         ],
       ),
     );
