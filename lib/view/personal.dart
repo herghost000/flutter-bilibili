@@ -64,7 +64,7 @@ class _PersonalPage extends State<PersonalPage>
                       Container(
                         height: 290.0,
                         child: Image.asset(
-                          'assets/images/5.webp',
+                          'assets/images/7.webp',
                           fit: BoxFit.cover,
                         ),
                       ),
