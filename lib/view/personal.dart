@@ -31,6 +31,8 @@ class _PersonalPage extends State<PersonalPage>
       if (_scrollController.position.pixels <= 255) {
         op = _scrollController.position.pixels / 255 * 2;
         if (op > 0.9) op = 1.0;
+      } else {
+        op = 1.0;
       }
     });
     _controller = new AnimationController(
@@ -179,21 +181,6 @@ class _PersonalPage extends State<PersonalPage>
         ),
       ],
     );
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("xxx"),
-        ),
-        body: Column(
-          children: <Widget>[
-            ClipPath(
-              clipper: BottomClipper(animation: _controller),
-              child: Container(
-                color: Colors.pink[300],
-                height: 200,
-              ),
-            )
-          ],
-        ));
   }
 
   @override

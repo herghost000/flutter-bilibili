@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({
@@ -26,8 +27,33 @@ class _NewsPage extends State<NewsPage> {
         leading: IconButton(icon: Icon(Icons.menu),onPressed: widget._leadPress,),
       ),
       body: Container(
-        child: Image.asset('assets/images/2.webp', fit: BoxFit.cover,width: double.infinity,),
+        child: Example(),
       ),
     );
+  }
+}
+
+class Example extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(itemBuilder: (context, index) {
+      if (index == 0) {
+        return new StickyHeader(
+          header: new Container(
+            height: 50.0,
+            color: Colors.blueGrey[700],
+            padding: new EdgeInsets.symmetric(horizontal: 16.0),
+            alignment: Alignment.centerLeft,
+            child: new Text('Header #$index',
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+          content: new Container(
+            child: Text("x"),
+          ),
+        );
+      }
+      return Text("xxx");
+    });
   }
 }

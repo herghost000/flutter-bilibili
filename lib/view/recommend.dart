@@ -17,20 +17,6 @@ class _RecommendPageState extends State<RecommendPage> {
   @override
   Future<void> initState() {
     super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels <=
-          widget._scrollViewController.position.maxScrollExtent) {
-        widget._scrollViewController.position
-            .jumpTo(_scrollController.position.pixels);
-      }
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        print('滑动到了最底部');
-        _getMore();
-      }
-    });
-    return null;
   }
 
   Future<void> _onRefresh() async {
@@ -45,47 +31,58 @@ class _RecommendPageState extends State<RecommendPage> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _onRefresh,
-      child: CustomScrollView(
-        controller: _scrollController,
-        slivers: <Widget>[
-          SliverList(
-              delegate: SliverChildListDelegate([
-            Container(margin: EdgeInsets.only(top: 8.0), child: Swiper())
-          ])),
-          SliverPadding(
-            padding: EdgeInsets.all(10.0),
-            sliver: SliverGrid.count(
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
-                crossAxisCount: 2,
-                childAspectRatio: 0.98,
-                children: <Widget>[
-                  GridTile(
-                    child: Container(
-                      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      color: Colors.white,
-                      child: Image.asset(
-                        'assets/images/ic_promo_index_sign3_v2.png',
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+    return Builder(builder: (BuildContext context){
+      return RefreshIndicator(
+        key: PageStorageKey<String>('recommend'),
+        onRefresh: _onRefresh,
+        child: NotificationListener(
+          onNotification: (ScrollNotification note){
+            if (note.metrics.pixels == note.metrics.maxScrollExtent) {
+              print('滑动到了最底部');
+              _getMore();
+            }
+          },
+          child: CustomScrollView(
+            controller: widget._scrollViewController,
+            slivers: <Widget>[
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                    Container(margin: EdgeInsets.only(top: 8.0), child: Swiper())
+                  ])),
+              SliverPadding(
+                padding: EdgeInsets.all(10.0),
+                sliver: SliverGrid.count(
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.98,
+                    children: <Widget>[
+                      GridTile(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                          color: Colors.white,
+                          child: Image.asset(
+                            'assets/images/ic_promo_index_sign3_v2.png',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  buildInkWell(1),
-                  buildInkWell(2),
-                  buildInkWell(3),
-                  buildInkWell(4),
-                  buildInkWell(5),
-                  buildInkWell(6),
-                  buildInkWell(7),
-                  buildInkWell(8),
-                ]),
-          )
-        ],
-      ),
-    );
+                      buildInkWell(1),
+                      buildInkWell(2),
+                      buildInkWell(3),
+                      buildInkWell(4),
+                      buildInkWell(5),
+                      buildInkWell(6),
+                      buildInkWell(7),
+                      buildInkWell(8),
+                    ]),
+              )
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   InkWell buildInkWell(int index) {

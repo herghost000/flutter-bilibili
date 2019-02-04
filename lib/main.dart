@@ -31,7 +31,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TabController _tabController;
-  ScrollController _scrollViewController;
   TabController _navController;
 
   List<Widget> navPages = <Widget>[];
@@ -48,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 4);
-    _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _navController = TabController(vsync: this, length: 4);
     _navController.addListener(() {
       nav2PageByIndex(_navController.index);
@@ -60,7 +58,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     navPages = <Widget>[
       new IndexPage(
           homeKey: _scaffoldKey,
-          scrollViewController: _scrollViewController,
           widget: widget,
           tabController: _tabController),
       ChannelPage(homeKey: _scaffoldKey,),
@@ -204,7 +201,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _tabController.dispose();
-    _scrollViewController.dispose();
     _navController.dispose();
     super.dispose();
   }
