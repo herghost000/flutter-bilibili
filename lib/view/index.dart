@@ -4,6 +4,7 @@ import '../main.dart';
 import 'recommend.dart';
 import 'hot.dart';
 import 'animated_cartoon.dart';
+import 'live.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({
@@ -68,7 +69,7 @@ class _IndexPageState extends State<IndexPage> {
               RecommendPage(scrollViewController: _scrollViewController),
               HotPage(scrollViewController: _scrollViewController),
               AnimatedCartoon(scrollViewController: _scrollViewController),
-              PageFour()
+              LivePage()
             ],
             controller: widget._tabController,
           ),
