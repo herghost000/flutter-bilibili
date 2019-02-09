@@ -19,27 +19,40 @@ class _VideoPlayPage extends State<VideoPlayPage> {
   TargetPlatform _platform;
   VideoPlayerController _videoPlayerController1;
   ChewieController _chewieController;
+  bool isInitPlay = false;
 
   @override
   void initState() {
     super.initState();
     _videoPlayerController1 = VideoPlayerController.network(
         '');
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController1,
-      autoPlay: true,
-      looping: true,
-       materialProgressColors: ChewieProgressColors(
-         playedColor: Colors.red,
-         handleColor: Colors.blue,
-         backgroundColor: Colors.black,
-         bufferedColor: Colors.lightGreen,
-       ),
-       placeholder: Container(
-         color: Colors.black,
-       ),
-       autoInitialize: true,
-    );
+    _videoPlayerController1.addListener((){
+      if (_videoPlayerController1.value.size != null && _videoPlayerController1.value.isPlaying == false) {
+        if (isInitPlay == false) {
+          isInitPlay = true;
+          setState(() {
+            _chewieController = ChewieController(
+              videoPlayerController: _videoPlayerController1,
+              autoPlay: true,
+              looping: true,
+              aspectRatio: _videoPlayerController1.value.size.width / _videoPlayerController1.value.size.height,
+              materialProgressColors: ChewieProgressColors(
+                playedColor: Colors.red,
+                handleColor: Colors.blue,
+                backgroundColor: Colors.black,
+                bufferedColor: Colors.lightGreen,
+              ),
+              placeholder: Container(
+                color: Colors.black,
+              ),
+              autoInitialize: true,
+            );
+          });
+        }
+      }
+
+    });
+    _videoPlayerController1.initialize();
   }
 
   @override
@@ -67,7 +80,7 @@ class _VideoPlayPage extends State<VideoPlayPage> {
           children: <Widget>[
             Expanded(
               child: Center(
-                child: Chewie(
+                child: _chewieController == null ? null : Chewie(
                   controller: _chewieController,
                 ),
               ),
