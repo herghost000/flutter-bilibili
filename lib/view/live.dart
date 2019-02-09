@@ -40,7 +40,7 @@ class _LivePage extends State<LivePage> {
       },
       <String, dynamic>{
         'name': '游戏',
-        'img': 'assets/images/2.0x/ic_live_home_game.png'
+        'img': 'assets/images/2.0x/music_ic__section_video.png'
       },
       <String, dynamic>{
         'name': '手游',
@@ -88,9 +88,9 @@ class _LivePage extends State<LivePage> {
             slivers: <Widget>[
               SliverToBoxAdapter(
                 child: Container(
-                  margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: Swiper(
-                    radius: 8.0,
+                    radius: 6.0,
                   ),
                 ),
               ),
@@ -101,7 +101,7 @@ class _LivePage extends State<LivePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        Image.asset(tags[index]['img']),
+                        Image.asset(tags[index]['img'], fit: BoxFit.fill,width: 30.0, height: 30.0,),
                         Padding(
                             padding: EdgeInsets.only(top: 4.0),
                             child: Text(tags[index]['name'])),
@@ -113,11 +113,117 @@ class _LivePage extends State<LivePage> {
                     crossAxisSpacing: 0.0,
                     mainAxisSpacing: 0.0,
                     crossAxisCount: 5,
-                  ))
+                  )),
+              SliverToBoxAdapter(
+                child: Column(
+                  children: <Widget>[
+                    Divider(),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 8.0, top: 8.0, bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text.rich(TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: '我的关注'),
+                                TextSpan(text: '13小时前'),
+                                TextSpan(text: 'YUKlri'),
+                                TextSpan(text: '直播了唱见电台')
+                              ]
+                          )),
+                          Icon(Icons.keyboard_arrow_right)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Column(
+                  children: <Widget>[
+                    Divider(),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 8.0, top: 8.0, bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text.rich(TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: '推荐直播'),
+                              ]
+                          )),
+                          Icon(Icons.keyboard_arrow_right)
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                  ],
+                ),
+              ),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                sliver: SliverGrid.count(
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.98,
+                    children: <Widget>[
+                      buildInkWell(1),
+                      buildInkWell(2),
+                      buildInkWell(3),
+                      buildInkWell(4),
+                      buildInkWell(5),
+                      buildInkWell(6),
+                      buildInkWell(7),
+                      buildInkWell(8),
+                    ]),
+              ),
             ],
           ),
         ),
       );
     });
+  }
+
+  InkWell buildInkWell(int index) {
+    return InkWell(
+      child: Card(
+        margin: EdgeInsets.all(0.0),
+        elevation: 1.0,
+        shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(6.0)), // 圆角
+        child: Column(
+          children: <Widget>[
+            Image.asset(
+              'assets/images/${index}.webp',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: MediaQuery.of(context).size.width / 2 - 100.0,
+            ),
+            Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(11.42),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        '哈哈哈哈！1月新番大吐槽第三弹！男主竟和多名女性轮流约会？！「泛式/新番妙妙屋14」',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Text(
+                        "Population: avida",
+                        style: TextStyle(color: Colors.black45),
+                      ),
+                    ],
+                  ),
+                ))
+          ],
+        ),
+      ),
+    );
   }
 }

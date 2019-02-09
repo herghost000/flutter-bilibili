@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../component/testWidget.dart';
-import '../main.dart';
 import 'recommend.dart';
 import 'hot.dart';
 import 'animated_cartoon.dart';
@@ -11,13 +9,11 @@ class IndexPage extends StatefulWidget {
     Key key,
     @required GlobalKey<ScaffoldState> homeKey,
     @required ScrollController scrollViewController,
-    @required this.widget,
     @required TabController tabController,
   })  : _homeKey = homeKey,
         _tabController = tabController,
         super(key: key);
 
-  final MyHomePage widget;
   final TabController _tabController;
   final GlobalKey<ScaffoldState> _homeKey;
 
@@ -26,7 +22,6 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-
   ScrollController _scrollViewController;
   double _top = 0.0;
 
@@ -34,16 +29,13 @@ class _IndexPageState extends State<IndexPage> {
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
-    _scrollViewController.addListener((){
+    _scrollViewController.addListener(() {
       double _pixels = _scrollViewController.position.pixels;
       double _height = kToolbarHeight;
       if (_pixels <= _height && _pixels >= 0) {
         setState(() {
           _top = -_scrollViewController.position.pixels;
         });
-
-        print(widget._tabController.index);
-        print(_scrollViewController.position.pixels);
       }
       if (_pixels > _height && -_top < _height) {
         setState(() {
@@ -75,7 +67,11 @@ class _IndexPageState extends State<IndexPage> {
           ),
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + kToolbarHeight + 40.0 + _top),
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top +
+                  kToolbarHeight +
+                  40.0 +
+                  _top),
         ),
         Container(
           height: MediaQuery.of(context).padding.top + kToolbarHeight + 40.0,
@@ -85,14 +81,30 @@ class _IndexPageState extends State<IndexPage> {
             height: kToolbarHeight,
             child: Column(
               children: <Widget>[
-                AppBar(
-                  title: Text(
-                    "bilibili",
-//                style: TextStyle(fontWeight: FontWeight.bold),
+                Container(
+                  height: MediaQuery.of(context).padding.top + kToolbarHeight,
+                  padding:
+                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                  child: Container(
+                    color: Colors.pink[300],
+                    height: kToolbarHeight,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Icon(Icons.menu,color: Colors.white,),
+                          transform: Transform.translate(offset: Offset(-12.0, 0.0)).transform,
+                        ),
+                        Container(
+                          height: 34.0,
+                          width: 34.0,
+                          child: CircleAvatar(
+                            backgroundImage:
+                            AssetImage('assets/images/bili_default_avatar.png'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  centerTitle: false,
-                  elevation: 0.0,
-                  backgroundColor: Colors.pink[300],
                 ),
                 Container(
                   width: double.infinity,
@@ -142,9 +154,5 @@ class _IndexPageState extends State<IndexPage> {
         ),
       ],
     );
-  }
-
-  void _leadPress() {
-    widget._homeKey.currentState.openDrawer();
   }
 }
