@@ -3,10 +3,18 @@ import 'package:fluro/fluro.dart';
 import 'config/application.dart';
 import 'router/routes.dart';
 import 'util/provider.dart';
+import 'model/widget.dart';
 
 void main() async{
   final provider = new Provider();
   await provider.init(true);
+  WidgetPoint w = new WidgetPoint(
+      name: '12',
+      cnName: '12',
+      image: '12',
+      doc: '12',
+  );
+  await WidgetControlModel().sql.insert(w.toSqlCondition());
   runApp(AppComponent());
 }
 

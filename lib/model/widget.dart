@@ -84,7 +84,7 @@ class WidgetPoint implements WidgetInterface {
 
   Map toSqlCondition() {
     Map _map = this.toMap();
-    Map condition = {};
+    Map<String, dynamic> condition = {};
     _map.forEach((k, value) {
       if (value != null) {
         condition[k] = value;
