@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'config/application.dart';
 import 'router/routes.dart';
-import 'view/home.dart';
+import 'util/provider.dart';
 
-void main() => runApp(AppComponent());
+void main() async{
+  final provider = new Provider();
+  await provider.init(true);
+  runApp(AppComponent());
+}
 
 class AppComponent extends StatefulWidget {
   @override

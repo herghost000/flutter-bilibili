@@ -3,6 +3,8 @@ import 'recommend.dart';
 import 'hot.dart';
 import 'animated_cartoon.dart';
 import 'live.dart';
+import '../component/search_input.dart';
+import '../model/widget.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({
@@ -17,6 +19,10 @@ class IndexPage extends StatefulWidget {
   final TabController _tabController;
   final GlobalKey<ScaffoldState> _homeKey;
 
+  void _leadPress() {
+    _homeKey.currentState.openDrawer();
+  }
+
   @override
   _IndexPageState createState() => _IndexPageState();
 }
@@ -24,6 +30,7 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   ScrollController _scrollViewController;
   double _top = 0.0;
+  WidgetControlModel widgetControl = new WidgetControlModel();
 
   @override
   void initState() {
@@ -49,6 +56,27 @@ class _IndexPageState extends State<IndexPage> {
   void dispose() {
     _scrollViewController.dispose();
     super.dispose();
+  }
+
+
+  Widget buildSearchInput(BuildContext context) {
+    return new SearchInput((value) async {
+      if (value != '') {
+        List<WidgetPoint> list = await widgetControl.search(value);
+
+        return list
+            .map((item) => new MaterialSearchResult<String>(
+          value: item.name,
+          text: item.name,
+          onTap: () {
+            print("SearchInput");
+          },
+        ))
+            .toList();
+      } else {
+        return null;
+      }
+    }, (value) {}, () {});
   }
 
   @override
@@ -91,16 +119,36 @@ class _IndexPageState extends State<IndexPage> {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          child: Icon(Icons.menu,color: Colors.white,),
+                          child: GestureDetector(
+                            child: Icon(
+                              Icons.menu,
+                              color: Colors.white,
+                            ),
+                            onTap: widget._leadPress,
+                          ),
                           transform: Transform.translate(offset: Offset(-12.0, 0.0)).transform,
                         ),
                         Container(
                           height: 34.0,
                           width: 34.0,
+                          margin: EdgeInsets.only(right: 20.0),
                           child: CircleAvatar(
-                            backgroundImage:
-                            AssetImage('assets/images/bili_default_avatar.png'),
+                            backgroundImage: AssetImage(
+                                'assets/images/bili_default_avatar.png'),
                           ),
+                        ),
+                        Expanded(child: buildSearchInput(context)),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Icon(Icons.videogame_asset, color: Colors.white,),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Icon(Icons.file_download, color: Colors.white,),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Icon(Icons.message, color: Colors.white,),
                         ),
                       ],
                     ),
