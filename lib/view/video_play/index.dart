@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../../config/application.dart';
+import 'brief_introduction.dart';
 import 'comment.dart';
-import 'recommend.dart';
 
 class VideoPlayPage extends StatefulWidget {
   VideoPlayPage({this.title = '视频播放'});
@@ -48,11 +48,11 @@ class _VideoPlayPage extends State<VideoPlayPage>
               materialProgressColors: ChewieProgressColors(
                 playedColor: Colors.red,
                 handleColor: Colors.blue,
-//                backgroundColor: Colors.black,
+                backgroundColor: Colors.black,
                 bufferedColor: Colors.lightGreen,
               ),
               placeholder: Container(
-//                color: Colors.black,
+                color: Colors.black,
               ),
               autoInitialize: false,
             );
@@ -77,77 +77,104 @@ class _VideoPlayPage extends State<VideoPlayPage>
       onGenerateRoute: Application.router.generator,
       home: Scaffold(
           body: Stack(
-            children: <Widget>[
-              Container(
-                child: TabBarView(
-                    children: <Widget>[Comment(), Recommend()],
-                    controller: _tabController),
-                height: MediaQuery.of(context).size.height,
-
-              ),
-              Container(
+        children: <Widget>[
+          Container(
+            child: TabBarView(
+                children: <Widget>[BriefIntroduction(), Comment()],
+                controller: _tabController),
+            height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width / 1.5 + 40.0),
+          ),
+          Container(
 //            height: MediaQuery.of(context).padding.top + kToolbarHeight + 40.0,
-                child: Container(
-                  transform:
+            child: Container(
+              transform:
                   Transform.translate(offset: Offset(0.0, 0.0)).transform,
 //              height: kToolbarHeight,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-//                    height: MediaQuery.of(context).padding.top + kToolbarHeight,
-                        child: _chewieController == null
-                            ? null
-                            : Chewie(
-                          controller: _chewieController,
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        color: Colors.white,
-                        child: UnconstrainedBox(
-                          child: Container(
-                            height: 40.0,
-                            color: Colors.white,
-                            alignment: Alignment(0, 0),
-                            width: MediaQuery.of(context).size.width - 4.0 * 32.0,
-                            child: TabBar(
-                              isScrollable: true,
-                              indicatorSize: TabBarIndicatorSize.label,
-                              indicatorColor: Colors.pink[200],
-                              labelColor: Colors.pink[300],
-                              unselectedLabelColor: Colors.black38,
-                              controller: _tabController,
-                              tabs: <Widget>[
-                                Tab(
-                                  text: "评论",
-                                ),
-                                Tab(
-                                  text: "推荐",
-                                ),
-                              ],
-                            ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    color: Colors.black,
+                    height: MediaQuery.of(context).size.width / 1.5,
+                    child: _chewieController == null
+                        ? null
+                        : Chewie(
+                            controller: _chewieController,
                           ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    color: Colors.white,
+                    child: UnconstrainedBox(
+                      child: Container(
+                        height: 40.0,
+                        color: Colors.white,
+                        alignment: Alignment(0, 0),
+                        width: MediaQuery.of(context).size.width - 4.0 * 32.0,
+                        child: TabBar(
+                          isScrollable: true,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicatorColor: Colors.pink[200],
+                          labelColor: Colors.pink[300],
+                          unselectedLabelColor: Colors.black38,
+                          controller: _tabController,
+                          tabs: <Widget>[
+                            Tab(
+                              text: "简介",
+                            ),
+                            Tab(
+                              text: "评论 1642",
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-              Container(
-                height: MediaQuery.of(context).padding.top + kToolbarHeight,
-                child: AppBar(
-                  elevation: 0.0,
-                  backgroundColor: Colors.transparent,
-                  leading: GestureDetector(
-                    child: Icon(Icons.arrow_back),
-                    onTap: () {
-                      Application.router.pop(context);
-                    },
-                  ),
-                ),
-              )
-            ],
-          )),
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).padding.top + kToolbarHeight,
+            child: AppBar(
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
+              leading: GestureDetector(
+                child: Icon(Icons.arrow_back),
+                onTap: () {
+                  Application.router.pop(context);
+                },
+              ),
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.file_download),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => new AlertDialog(
+                                  title: new Text('提示'),
+                                  content: new Text("是否下载此视频"),
+                                  actions: <Widget>[
+                                    new FlatButton(
+                                      child: new Text("取消"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    new FlatButton(
+                                      child: new Text("下载"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ]));
+                    })
+              ],
+            ),
+          )
+        ],
+      )),
 //      Scaffold(
 //        appBar: AppBar(
 //          leading: GestureDetector(onTap: (){
