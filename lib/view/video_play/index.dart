@@ -32,7 +32,7 @@ class _VideoPlayPage extends State<VideoPlayPage>
     _tabController = TabController(vsync: this, length: 2);
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _videoPlayerController1 = VideoPlayerController.network(
-        'http://192.168.250.10/www.runoob.com/try/demo_source/movie.mp4');
+        'https://ts.caololita.com/video/play/1a2842400b8611e991fbf9d1c7c5a933/6e5fe7e0b77afb7a82e61eb4b648fe6a.m3u8');
     _videoPlayerController1.addListener(() {
       if (_videoPlayerController1.value.size != null &&
           _videoPlayerController1.value.isPlaying == false) {

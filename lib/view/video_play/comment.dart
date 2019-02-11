@@ -54,51 +54,70 @@ class _Comment extends State<Comment> {
         SliverList(
             delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
-          return Container(
-            child: Flex(
-              direction: Axis.horizontal,
-              children: <Widget>[
-                Container(
-                  color: Colors.grey,
-                  width: 80.0,
-                  height: 60.0,
-                  alignment: Alignment.center,
-                  child: new CircleAvatar(
-                    backgroundImage:
-                        new AssetImage('assets/images/${index + 1}.webp'),
-                    radius: 30.0,
-                  ),
-                ),
-
-//            color: Colors.grey,
-//            alignment: Alignment.topLeft,
-//            child: Column(
-//              crossAxisAlignment: CrossAxisAlignment.stretch,
-//              children: <Widget>[
-//                Row(
-//                  children: <Widget>[Text('这是第二行'), Text('这是第二行')],
-//                ),
-//                Text('这是第二行')
-//              ],
-//            )
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.grey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text('ss'),
-                        Text('ss'),
-                        Text('ss'),
-                        Text('ss'),
-                      ],
+          return Column(
+            children: <Widget>[
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+//                color: Colors.grey,
+                    width: 80.0,
+                    alignment: Alignment.topCenter,
+                    child: new CircleAvatar(
+                      backgroundImage:
+                          new AssetImage('assets/images/${index + 1}.webp'),
+                      radius: 30.0,
                     ),
                   ),
-                )
-              ],
-            ),
+                  Expanded(
+                    child: Container(
+//                  color: Colors.grey,
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    '雪哥-NeroSparda',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 6.0),
+                                      child: Image.asset(
+                                          'assets/images/ic_user_level_4.png')),
+                                ],
+                              ),
+                              Container(
+                                height: 30.0,
+                                  child: FlatButton.icon(
+                                      textColor: Colors.red,
+                                      onPressed: () {},
+                                      icon: Icon(Icons.add),
+                                      label: Text('关注')))
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          ),
+                          Text('ss'),
+                          Text('ss'),
+                          Text('ss'),
+                          Text('ss'),
+                          Text('ss'),
+                          Text('ss'),
+                          Text('ss'),
+                          Text('ss+'),
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                      constraints: BoxConstraints(minHeight: 60.0),
+                    ),
+                    flex: 1,
+                  )
+                ],
+              ),
+              Divider()
+            ],
           );
         }, childCount: 8))
       ],
