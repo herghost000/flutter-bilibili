@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../component/swiper.dart';
 import '../config/application.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class RecommendPage extends StatefulWidget {
   RecommendPage({Key key, ScrollController scrollViewController})
@@ -46,6 +47,35 @@ class _RecommendPageState extends State<RecommendPage> {
           child: CustomScrollView(
             controller: widget._scrollViewController,
             slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: AspectRatio(
+                  aspectRatio: 2,
+                  child: Container(
+                    color: Colors.blue,
+                    child: Text('666'),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: new CarouselSlider(
+                    items: [1,2,3,4,5].map((i) {
+                      return new Builder(
+                        builder: (BuildContext context) {
+                          return new Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: new EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: new BoxDecoration(
+                                  color: Colors.amber
+                              ),
+                              child: new Text('text $i', style: new TextStyle(fontSize: 16.0),)
+                          );
+                        },
+                      );
+                    }).toList(),
+                    height: 400.0,
+                    autoPlay: false
+                ),
+              ),
               SliverList(
                   delegate: SliverChildListDelegate([
                     Container(margin: EdgeInsets.only(top: 8.0), child: Swiper())

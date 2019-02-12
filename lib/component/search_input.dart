@@ -327,7 +327,6 @@ class _MaterialSearchInputState<T> extends State<MaterialSearchInput<T>> {
 
   Widget build(BuildContext context) {
     final TextStyle valueStyle = Theme.of(context).textTheme.subhead;
-
     return new InkWell(
       onTap: () => _showMaterialSearch(context),
       child: new FormField<T>(

@@ -26,24 +26,18 @@ class _BriefIntroduction extends State<BriefIntroduction> with TickerProviderSta
   }
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onVerticalDragUpdate: (DragUpdateDetails details) {
-//        _scrollController.jumpTo(_scrollController.position.pixels + -details.delta.dy);
-        },
-        onVerticalDragEnd: (DragEndDetails details) {
-//        print(details.velocity.pixelsPerSecond);
-        },
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverToBoxAdapter(child: _PersonalBriefIntroduction()),
-            SliverToBoxAdapter(child: _VideoBriefIntroduction()),
-            SliverToBoxAdapter(child: _InteractionBar()),
-            SliverToBoxAdapter(
-              child: _TagsBar(),
-            ),
-            _Relevant()
-          ],
-        ));
+    return CustomScrollView(
+        key: PageStorageKey<String>('brief_introduction'),
+        slivers: <Widget>[
+          SliverToBoxAdapter(child: _PersonalBriefIntroduction()),
+          SliverToBoxAdapter(child: _VideoBriefIntroduction()),
+          SliverToBoxAdapter(child: _InteractionBar()),
+          SliverToBoxAdapter(
+            child: _TagsBar(),
+          ),
+          _Relevant()
+        ],
+      );
   }
 }
 
