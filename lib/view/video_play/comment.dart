@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
 
 class Comment extends StatefulWidget {
   @override
@@ -90,7 +92,7 @@ class _Comment extends State<Comment> {
                                 ],
                               ),
                               Container(
-                                height: 30.0,
+                                  height: 30.0,
                                   child: FlatButton.icon(
                                       textColor: Colors.red,
                                       onPressed: () {},
@@ -99,14 +101,79 @@ class _Comment extends State<Comment> {
                             ],
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
-                          Text('ss'),
-                          Text('ss'),
-                          Text('ss'),
-                          Text('ss'),
-                          Text('ss'),
-                          Text('ss'),
-                          Text('ss'),
-                          Text('ss+'),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                '#1',
+                                style: TextStyle(color: Colors.black38),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  '2-8',
+                                  style: TextStyle(color: Colors.black38),
+                                ),
+                              )
+                            ],
+                          ),
+                          Html(
+                            data: """
+    <!--For a much more extensive example, look at example/main.dart-->
+      <p>第一！！！！！</p><p>疯狂表白皂老师！</p><p>给皂老师疯狂打call！</p><p>我皂老师天下第一</p><p>我皂老师举世无双</p><p>皂皂每个月前十五天上午直播，会有冠世一战和繁华唱遍的现场版！记得来直播间430听拜年祭现场版😄</p>
+  """,
+                            blockSpacing: 0.0,
+                            padding: EdgeInsets.only(right: 8.0),
+                            backgroundColor: Colors.transparent,
+                            onLinkTap: (url) {
+                              // open url in a webview
+                            },
+                            customRender: (node, children) {
+                              if (node is dom.Element) {}
+                            },
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Image.asset(
+                                        'assets/images/ic_player_endpage_recommend.png', color: Colors.black38,height: 16.0,fit: BoxFit.fitHeight,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text('1777', style: TextStyle(color: Colors.black38),),
+                                    )
+                                  ],
+                                ),
+                                padding: EdgeInsets.only(right: 20.0),
+                              ),
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Image.asset(
+                                      'assets/images/ic_player_endpage_dislike.png', color: Colors.black38,height: 16.0,fit: BoxFit.fitHeight,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text('', style: TextStyle(color: Colors.black38),),
+                                    )
+                                  ],
+                                ),
+                                padding: EdgeInsets.only(right: 20.0),
+                              ),
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Image.asset(
+                                      'assets/images/ic_player_share_new.png', color: Colors.black38,height: 16.0,fit: BoxFit.fitHeight,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text('', style: TextStyle(color: Colors.black38),),
+                                    )
+                                  ],
+                                ),
+                                padding: EdgeInsets.only(right: 20.0),
+                              ),
+                            ],
+                          )
                         ],
                         crossAxisAlignment: CrossAxisAlignment.start,
                       ),

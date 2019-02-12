@@ -20,6 +20,11 @@ class _BriefIntroduction extends State<BriefIntroduction> with TickerProviderSta
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onVerticalDragUpdate: (DragUpdateDetails details) {
