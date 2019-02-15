@@ -41,8 +41,8 @@ class InfinitySlider extends StatefulWidget {
     this.transCurve: Curves.fastOutSlowIn,
     this.updateCallback,
   })  : pageController = new PageController(
-    initialPage: kRealPage + initialPage,
-  ),
+          initialPage: items.length + initialPage,
+        ),
         assert(items != null),
         assert(items.length > 0),
         assert(initialPage != null),
