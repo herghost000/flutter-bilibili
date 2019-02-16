@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../component/swiper.dart';
 import '../config/application.dart';
 import '../component/infinity_slider.dart';
@@ -62,6 +63,29 @@ class _RecommendPageState extends State<RecommendPage> {
                         },
                       );
                     }).toList(),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 500,
+                  child: CupertinoPicker.builder(
+                      magnification: 1.0,
+                      itemExtent: 40.0,
+                      backgroundColor: Colors.white,
+                      onSelectedItemChanged: (index) {
+                        print(index);
+                      },
+                      itemBuilder: (context, index) {
+                        return Center(
+                          child: Text(
+                            '${index}',
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      },
+                      childCount: 10),
                 ),
               ),
               SliverList(
