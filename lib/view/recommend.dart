@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../component/swiper.dart';
 import '../config/application.dart';
 import '../component/infinity_slider.dart';
+import '../router/routes.dart';
 
 class RecommendPage extends StatefulWidget {
   RecommendPage({Key key, ScrollController scrollViewController})
@@ -48,46 +49,23 @@ class _RecommendPageState extends State<RecommendPage> {
           child: CustomScrollView(
             controller: widget._scrollViewController,
             slivers: <Widget>[
-              SliverToBoxAdapter(
-                child: new InfinitySlider(
-                    items: [1,2,3,4,5].map((i) {
-                      return new Builder(
-                        builder: (BuildContext context) {
-                          return new Container(
-                              width: MediaQuery.of(context).size.width,
-                              decoration: new BoxDecoration(
-                                  color: Colors.amber
-                              ),
-                              child: new Text('text $i', style: new TextStyle(fontSize: 16.0),)
-                          );
-                        },
-                      );
-                    }).toList(),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Container(
-                  height: 500,
-                  child: CupertinoPicker.builder(
-                      magnification: 1.0,
-                      itemExtent: 40.0,
-                      backgroundColor: Colors.white,
-                      onSelectedItemChanged: (index) {
-                        print(index);
-                      },
-                      itemBuilder: (context, index) {
-                        return Center(
-                          child: Text(
-                            '${index}',
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      },
-                      childCount: 10),
-                ),
-              ),
+//              SliverToBoxAdapter(
+//                child: new InfinitySlider(
+//                    items: [1,2,3,4,5].map((i) {
+//                      return new Builder(
+//                        builder: (BuildContext context) {
+//                          return new Container(
+//                              width: MediaQuery.of(context).size.width,
+//                              decoration: new BoxDecoration(
+//                                  color: Colors.amber
+//                              ),
+//                              child: new Text('text $i', style: new TextStyle(fontSize: 16.0),)
+//                          );
+//                        },
+//                      );
+//                    }).toList(),
+//                ),
+//              ),
               SliverList(
                   delegate: SliverChildListDelegate([
                     Container(margin: EdgeInsets.only(top: 8.0), child: Swiper())
@@ -131,7 +109,8 @@ class _RecommendPageState extends State<RecommendPage> {
   InkWell buildInkWell(int index) {
     return InkWell(
       onTap: (){
-        Application.router.navigateTo(context, "/video_play");
+        Application.router.navigateTo(context, Routes.testOne);
+//        Application.router.navigateTo(context, "/video_play");
       },
       child: Card(
         margin: EdgeInsets.all(0.0),
