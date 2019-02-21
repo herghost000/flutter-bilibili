@@ -39,54 +39,50 @@ class _StackState extends State<SlideStack> {
   }
 }
 
-/// Container that can be slid.
+/// 可以滑动的容器。
 ///
-/// Will automatically finish the slide animation when the drag gesture ends.
+/// 拖动手势结束时将自动完成幻灯片动画。
 class SlideContainer extends StatefulWidget {
   final Widget child;
 
-  /// No shadow when both shadowBlurRadius and shadowSpreadRadius equal to null.
-  final double shadowBlurRadius;
-  final double shadowSpreadRadius;
-
-  /// Which direction will the drawer open from.
+  /// 抽屉从哪个方向打开。
   final SlideDirection slideDirection;
 
-  /// Default to Duration(milliseconds: 250)
+  /// 默认为持续时间（毫秒：250）
   final Duration autoSlideDuration;
 
-  /// When slideDirection is left or right, this means the drawer's width.
-  /// When slideDirection is top or bottom, this means the drawer's height.
+  /// 当slideDirection向左或向右时，这意味着抽屉的宽度。
+  /// 当slideDirection为top或bottom时，这意味着抽屉的高度。
   final double drawerSize;
 
-  /// If the drag gesture is fast enough, it will auto complete the slide.
+  /// 如果拖动手势足够快，它将自动完成幻灯片。
   final double minAutoSlideDragVelocity;
 
-  /// If the drag gesture is slower than [minAutoSlideDragVelocity] and the slide distance is less than [minAutoSlideDistance] ,
-  /// the container goes back to the starting position.
+  /// 如果拖动手势比[minAutoSlideDragVelocity]慢并且滑动距离小于[minAutoSlideDistance]，
+  /// 容器回到起始位置。
   ///
   ///
-  /// Else the container moves to [drawerSize]（drawer full open）.
+  /// 否则容器移动到[drawerSize]（抽屉全开）。
   ///
   /// Default to be [drawerSize] * 0.5.
   final double minAutoSlideDistance;
 
-  /// The drag gesture's damping coefficient.
-  /// The value should be equal or superior to 1.0.
+  /// 拖动手势的阻尼系数。
+  /// 该值应等于或高于1.0。
   final double dragDampening;
 
-  /// Called when the drawer starts to open.
+  /// 抽屉开始打开时调用。
   final VoidCallback onSlideStarted;
 
-  /// Called when the drawer is full opened.
+  /// 抽屉完全打开时调用。
   final VoidCallback onSlideCompleted;
 
-  /// Called when the drag gesture is canceled (the container goes back to the starting position).
+  /// 取消拖动手势时调用（容器返回到起始位置）。
   final VoidCallback onSlideCanceled;
 
-  /// Called each time when the slide gesture is active.
+  /// 每次滑动手势处于活动状态时调用。
   ///
-  /// returns the position of the drawer between 0.0 and 1.0 (depends on the progress of animation).
+  /// 返回抽屉在0.0和1.0之间的位置（取决于动画的进度）。
   final ValueChanged<double> onSlide;
 
   final Matrix4 transform;
@@ -95,11 +91,9 @@ class SlideContainer extends StatefulWidget {
     Key key,
     @required this.child,
     this.slideDirection = SlideDirection.left,
-    this.shadowBlurRadius = 15.0,
-    this.shadowSpreadRadius = 10.0,
     this.minAutoSlideDragVelocity = 600.0,
     this.autoSlideDuration = const Duration(milliseconds: 250),
-    this.dragDampening = 8.0,
+    this.dragDampening = 1.0,
     this.minAutoSlideDistance,
     this.drawerSize,
     this.onSlideStarted,
@@ -123,29 +117,33 @@ class ContainerState extends State<SlideContainer>
   final Map<Type, GestureRecognizerFactory> gestures =
       <Type, GestureRecognizerFactory>{};
 
-  // User's finger move value.
+  // 用户的手指移动值。
   double dragValue = 0.0;
 
   // How long should the container move (relate to the [dragDampening])
+  //容器应该移动多长时间（与[dragDampening]相关）
   double dragTarget = 0.0;
   bool isFirstDragFrame;
   AnimationController animationController;
   Ticker fingerTicker;
 
-  bool get isSlideVertical =>
-      widget.slideDirection == SlideDirection.top ||
-      widget.slideDirection == SlideDirection.bottom;
+  bool get isSlideVertical {
+    return widget.slideDirection == SlideDirection.top ||
+        widget.slideDirection == SlideDirection.bottom;
+  }
 
-  double get maxDragDistance =>
-      widget.drawerSize ??
-      (isSlideVertical
-          ? MediaQuery.of(context).size.height
-          : MediaQuery.of(context).size.width);
+  double get maxDragDistance {
+    return widget.drawerSize ??
+        (isSlideVertical
+            ? MediaQuery.of(context).size.height
+            : MediaQuery.of(context).size.width);
+  }
 
   double get minAutoSlideDistance =>
       widget.minAutoSlideDistance ?? maxDragDistance * 0.5;
 
   // The translation offset of the container.(decides the position of the container)
+  //容器的平移偏移量（决定容器的位置）
   double get containerOffset =>
       animationController.value * maxDragDistance * dragTarget.sign;
 
@@ -160,6 +158,7 @@ class ContainerState extends State<SlideContainer>
           });
 
     fingerTicker = createTicker((_) {
+//      print('${dragValue}');
       if ((dragValue - dragTarget).abs() <= 1.0) {
         dragTarget = dragValue;
       } else {
@@ -182,16 +181,17 @@ class ContainerState extends State<SlideContainer>
 
   GestureRecognizerFactoryWithHandlers<T>
       createGestureRecognizer<T extends DragGestureRecognizer>(
-              GestureRecognizerFactoryConstructor<T> constructor) =>
-          GestureRecognizerFactoryWithHandlers<T>(
-            constructor,
-            (T instance) {
-              instance
-                ..onStart = handleDragStart
-                ..onUpdate = handleDragUpdate
-                ..onEnd = handleDragEnd;
-            },
-          );
+          GestureRecognizerFactoryConstructor<T> constructor) {
+    return GestureRecognizerFactoryWithHandlers<T>(
+      constructor,
+      (T instance) {
+        instance
+          ..onStart = handleDragStart
+          ..onUpdate = handleDragUpdate
+          ..onEnd = handleDragEnd;
+      },
+    );
+  }
 
   void _registerGestureRecognizer() {
     if (isSlideVertical) {
@@ -246,6 +246,7 @@ class ContainerState extends State<SlideContainer>
       isFirstDragFrame = false;
       return;
     }
+//    print('${dragValue}-${dragTarget}');
     dragValue = (dragValue + getDelta(details))
         .clamp(-maxDragDistance, maxDragDistance);
     if (widget.slideDirection == SlideDirection.top ||
@@ -258,6 +259,7 @@ class ContainerState extends State<SlideContainer>
   }
 
   void handleDragEnd(DragEndDetails details) {
+//    print('${getVelocity(details)}-${dragTarget.sign}-${dragTarget}');
     if (getVelocity(details) * dragTarget.sign >
         widget.minAutoSlideDragVelocity) {
       _completeSlide();
@@ -273,31 +275,11 @@ class ContainerState extends State<SlideContainer>
   }
 
   Widget _getContainer() {
-    if (hasShadow) {
-      return Container(
-        child: widget.child,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black54,
-              offset: Offset(10.0, 0.0),
-              blurRadius: widget.shadowBlurRadius,
-              spreadRadius: widget.shadowSpreadRadius,
-            ),
-          ],
-        ),
-        transform: widget.transform,
-      );
-    } else {
-      return Container(
-        child: widget.child,
-        transform: widget.transform,
-      );
-    }
+    return Container(
+      child: widget.child,
+      transform: widget.transform,
+    );
   }
-
-  bool get hasShadow =>
-      widget.shadowBlurRadius != null && widget.shadowSpreadRadius != null;
 
   @override
   Widget build(BuildContext context) => RawGestureDetector(

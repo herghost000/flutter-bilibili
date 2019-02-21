@@ -16,6 +16,17 @@ class TestOneState extends State<TestOne> {
   Widget build(BuildContext context) {
     final title = 'Dismissing Items';
 
-    return null;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('666'),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Text('1')
+          ],
+        ),
+      ),
+    );
   }
 }

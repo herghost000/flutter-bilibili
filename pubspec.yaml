@@ -26,6 +26,7 @@ dependencies:
   flutter_html: ^0.9.4
   cached_network_image: ^0.5.1
   infinity_slider: ^0.0.1
+  flutter_slidable: ^0.4.9
 
 dev_dependencies:
   flutter_test:
