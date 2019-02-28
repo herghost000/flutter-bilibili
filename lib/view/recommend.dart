@@ -109,8 +109,8 @@ class _RecommendPageState extends State<RecommendPage> {
   InkWell buildInkWell(int index) {
     return InkWell(
       onTap: (){
-        Application.router.navigateTo(context, Routes.testOne);
-//        Application.router.navigateTo(context, "/video_play");
+//        Application.router.navigateTo(context, Routes.testOne);
+        Application.router.navigateTo(context, "/video_play");
       },
       child: Card(
         margin: EdgeInsets.all(0.0),
